@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+      th:replace="~{fragments/_layout :: body(~{::content}, 'Novo Usuário')}">
+<body>
+<div th:fragment="content">
+    <form th:action="@{/usuario}" method="post" class="card" th:object="${usuario}">
+        <label>Usuário
+            <input type="text" th:field="*{username}" required/>
+        </label>
+        <label>Senha
+            <input type="password" th:field="*{password}" required/>
+        </label>
+        <label>Perfil
+            <select th:field="*{role}">
+                <option th:each="r : ${roles}" th:value="${r}" th:text="${r}"></option>
+            </select>
+        </label>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Criar</button>
+    </form>
+</div>
+</body>
+</html>

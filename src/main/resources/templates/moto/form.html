@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: shell(content=~{::content}, ptitle='Moto')}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <form th:action="${moto.id} == null ? @{/moto} : @{'/moto/' + ${moto.id}}" method="post">
+        <label>Placa <input type="text" name="placa" th:value="${moto.placa}" required/></label><br/>
+        <label>Modelo <input type="text" name="modelo" th:value="${moto.modelo}" required/></label><br/>
+        <label>Status
+            <select name="status">
+                <option th:each="s : ${status}" th:value="${s}" th:selected="${s == moto.status}" th:text="${s}">DESALOCADA</option>
+            </select>
+        </label><br/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button class="btn" type="submit">Salvar</button>
+        <p th:if="${erro}" th:text="${erro}" style="color:#b91c1c"></p>
+    </form>
+</div>
+</body>
+</html>

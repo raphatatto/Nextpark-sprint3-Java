@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: shell(content = ~{::content}, ptitle = 'Motos')}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="content">
+    <form th:action="@{/moto}" method="get" style="margin-bottom:12px">
+        <input type="text" name="q" th:value="${param.q}" placeholder="placa ou modelo"/>
+        <button class="btn" type="submit">Pesquisar</button>
+    </form>
+
+    <a th:href="@{/moto/nova}" class="btn">Nova moto</a>
+
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Placa</th><th>Modelo</th><th>Status</th><th>Vaga</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${motos}">
+            <td th:text="${m.id}">1</td>
+            <td th:text="${m.placa}">AAA0000</td>
+            <td th:text="${m.modelo}">Modelo</td>
+            <td th:text="${m.status}">DESALOCADA</td>
+            <td th:text="${m.vaga != null ? m.vaga.codigo : '—'}">A1</td>
+            <td>
+                <!-- Cliente: editar/excluir (service valida se é dono) -->
+                <a th:href="@{'/moto/' + ${m.id} + '/editar'}" class="btn">Editar</a>
+                <form th:action="@{'/moto/' + ${m.id} + '/delete'}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="btn" type="submit">Excluir</button>
+                </form>
+
+                <!-- Histório (todos) -->
+                <a th:href="@{'/moto/' + ${m.id} + '/historico'}" class="btn">Histórico</a>
+
+                <!-- Gerente: desalocar/alocar/transferir -->
+                <span sec:authorize="hasRole('GERENTE')">
+          <form th:if="${m.vaga != null}" th:action="@{'/moto/' + ${m.id} + '/desalocar'}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button class="btn" type="submit">Desalocar</button>
+          </form>
+
+          <form th:action="@{'/moto/' + ${m.id} + '/alocar'}" method="post" class="inline">
+            <select name="vagaId" required>
+              <option th:each="v : ${vagasLivres}" th:value="${v.id}" th:text="${v.codigo}">A1</option>
+            </select>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button class="btn" type="submit" th:text="${m.vaga == null ? 'Alocar' : 'Mover'}">Alocar</button>
+          </form>
+        </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

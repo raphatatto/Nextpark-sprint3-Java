@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: shell(content=~{::content}, ptitle='Início')}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="content">
+    <div class="card">
+        <h3>Cliente</h3>
+        <ul>
+            <li><a th:href="@{/moto/nova}">Cadastrar moto</a></li>
+            <li><a th:href="@{/moto}">Minhas motos</a></li>
+        </ul>
+    </div>
+
+    <div class="card" sec:authorize="hasRole('GERENTE')">
+        <h3>Gerente</h3>
+        <ul>
+            <li><a th:href="@{/vaga}">Gerenciar vagas</a></li>
+            <li><a th:href="@{/moto}">Alocar / Transferir</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

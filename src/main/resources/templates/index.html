@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/_layout :: layout(
+        content=~{::content},
+        title='Início',
+        active='home'
+      )}">
+<th:block th:fragment="content">
+    <h2>Bem-vindo ao NextPark</h2>
+    <p>Use o menu acima para navegar.</p>
+
+    <div xmlns:sec="http://www.thymeleaf.org/extras/springsecurity" sec:authorize="hasRole('MANAGER')">
+        <h3>Atalhos do Admin</h3>
+        <p>
+            <a class="btn" th:href="@{/vagas}">Gerir Vagas</a>
+            <a class="btn" th:href="@{/alocacoes}">Alocações</a>
+        </p>
+    </div>
+
+    <div xmlns:sec="http://www.thymeleaf.org/extras/springsecurity" sec:authorize="hasAnyRole('OPERATOR','MANAGER')">
+        <h3>Operações</h3>
+        <p>
+            <a class="btn" th:href="@{/localizar}">Localizar Moto</a>
+            <a class="btn ok" th:href="@{/motos/novo}">Cadastrar Moto</a>
+        </p>
+    </div>
+</th:block>
+</html>

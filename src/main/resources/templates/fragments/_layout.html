@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="shell(content, ptitle)">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${ptitle} ?: 'NextPark'">NextPark</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/app.js}"></script>
+</head>
+<body>
+<header>
+    <div class="brand">NextPark</div>
+    <nav>
+        <a th:href="@{/}">Início</a>
+        <a th:href="@{/moto}">Motos</a>
+        <a th:href="@{/moto/nova}" sec:authorize="isAuthenticated()">Nova moto</a>
+        <a th:href="@{/vaga}" sec:authorize="hasRole('GERENTE')">Vagas</a>
+    </nav>
+    <div>
+        <span sec:authorize="isAuthenticated()">Olá, <b sec:authentication="name">user</b> | </span>
+        <a th:href="@{/login}" sec:authorize="isAnonymous()">Entrar</a>
+        <a th:href="@{/register}" sec:authorize="isAnonymous()">Registrar</a>
+        <form th:action="@{/logout}" method="post" class="inline" sec:authorize="isAuthenticated()">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button class="btn" type="submit">Sair</button>
+        </form>
+    </div>
+</header>
+
+<main class="container">
+    <h1 th:text="${ptitle}">Título</h1>
+    <div th:if="${msg}"  class="alert success" th:text="${msg}"></div>
+    <div th:if="${erro}" class="alert error"   th:text="${erro}"></div>
+
+    <div th:insert="${content}"></div>
+</main>
+
+<footer class="container">© NextPark</footer>
+</body>
+</html>

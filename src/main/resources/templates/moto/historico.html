@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/_layout :: shell(content=~{::content}, ptitle='Historico')}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <table>
+        <thead><tr><th>Quando</th><th>Ação</th><th>Origem</th><th>Destino</th><th>Por</th></tr></thead>
+        <tbody>
+        <tr th:each="h : ${historico}">
+            <td th:text="${#temporals.format(h.createdAt, 'dd/MM/yyyy HH:mm')}">agora</td>
+            <td th:text="${h.acao}">ALOCAR</td>
+            <td th:text="${h.origem != null ? h.origem.codigo : '—'}">A1</td>
+            <td th:text="${h.destino != null ? h.destino.codigo : '—'}">B2</td>
+            <td th:text="${h.usuario}">gerente</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
