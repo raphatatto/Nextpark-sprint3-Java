@@ -25,7 +25,7 @@ public class HistoricoMovimentacao {
     @ManyToOne @JoinColumn(name="DESTINO_VAGA_ID")
     private Vaga destino;
 
-    @Column(name="ACAO", nullable=false)   // ALOCAR/DESALOCAR/TRANSFERIR/EXCLUIR_MOTO/EXCLUIR_VAGA
+    @Column(name="ACAO", nullable=false)
     private String acao;
 
     @Column(name="USUARIO", nullable=false)

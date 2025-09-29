@@ -29,7 +29,7 @@ public class MotoController {
                        Authentication auth, Principal principal, Model model){
         boolean gerente = auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_GERENTE"));
         model.addAttribute("motos", motoService.listarPara(principal.getName(), gerente, q));
-        model.addAttribute("vagasLivres", vagaService.listarTodas()); // para selects do gerente
+        model.addAttribute("vagasLivres", vagaService.listarTodas());
         return "moto/list";
     }
 

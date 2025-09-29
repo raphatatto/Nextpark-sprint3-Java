@@ -25,7 +25,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String registrar(@ModelAttribute Usuario u){
         u.setPassword(encoder.encode(u.getPassword()));
-        u.setRole(Role.CLIENTE); // sempre CLIENTE ao se registrar
+        u.setRole(Role.CLIENTE);
         repo.save(u);
         return "redirect:/login?registered";
     }

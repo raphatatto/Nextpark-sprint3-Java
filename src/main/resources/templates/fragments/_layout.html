@@ -14,7 +14,6 @@
     <div class="brand">NextPark</div>
     <nav>
         <a th:href="@{/}">Início</a>
-        <a th:href="@{/moto}">Motos</a>
         <a th:href="@{/moto/nova}" sec:authorize="isAuthenticated()">Nova moto</a>
         <a th:href="@{/vaga}" sec:authorize="hasRole('GERENTE')">Vagas</a>
     </nav>

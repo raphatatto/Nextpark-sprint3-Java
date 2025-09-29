@@ -45,7 +45,6 @@ public class VagaService {
     @Transactional
     public void deletar(Long id) {
         Vaga v = obter(id);
-        // Todas as motos nessa vaga ficam DESALOCADAS
         List<Moto> motos = motoRepo.findByVaga_Id(id);
         for (Moto m : motos) {
             m.setVaga(null);

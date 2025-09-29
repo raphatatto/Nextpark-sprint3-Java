@@ -1,12 +1,11 @@
--- V4__indice_constraints.sql (Oracle idempotente)
--- NÃO crie índice para MOTOS(PLACA) e VAGAS(CODIGO): já existem via UNIQUE na V1.
+
 
 -- Índice para filtros por dono
 BEGIN
   EXECUTE IMMEDIATE 'CREATE INDEX IDX_MOTOS_OWNER ON MOTOS (OWNER_USER_ID)';
 EXCEPTION
   WHEN OTHERS THEN
-    IF SQLCODE NOT IN (-955, -1408) THEN RAISE; END IF;  -- -955 = nome já existe, -1408 = colunas já indexadas
+    IF SQLCODE NOT IN (-955, -1408) THEN RAISE; END IF;
 END;
 /
 
