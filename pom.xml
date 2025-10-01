@@ -18,26 +18,16 @@
 
     <properties>
         <java.version>17</java.version>
-        <flyway.version>11.13.1</flyway.version>
-        <azure.sql.url>${env.AZURE_SQL_URL}</azure.sql.url>
-        <azure.sql.user>${env.AZURE_SQL_USER}</azure.sql.user>
-        <azure.sql.password>${env.AZURE_SQL_PASSWORD}</azure.sql.password>
+        <flyway.version>9.16.0</flyway.version>
+        <azure.sql.url>jdbc:sqlserver://sprint3-java.database.windows.net:1433;database=sprint3;encrypt=true;trustServerCertificate=false;loginTimeout=30;</azure.sql.url>
+        <azure.sql.user>raphatatto@sprint3-java</azure.sql.user>
+        <azure.sql.password>SenhaForte123@</azure.sql.password>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>12.6.1.jre11</version>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,34 +35,31 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
-        <!-- Persistência -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- Se você NÃO usa Spring Data JDBC, pode remover este starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
-        </dependency>
-
-        <!-- Flyway -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway.version}</version>
         </dependency>
-
-        <!-- Thymeleaf + Security (apenas 1 vez!) -->
         <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-sqlserver</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
-
-        <!-- Dev/Test -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>12.6.1.jre11</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -92,7 +79,6 @@
 
     <build>
         <plugins>
-            <!-- Compiler: garante Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -106,8 +92,6 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-
-            <!-- Flyway: deixe apenas UM plugin -->
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
@@ -121,7 +105,6 @@
                     </locations>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
