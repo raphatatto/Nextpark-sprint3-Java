@@ -13,6 +13,7 @@ https://youtu.be/vhddup5DgIQ
 ## Funcionalidades
 
 - **Autenticação via formulário e controle de acesso por perfil**: somente páginas públicas, como login e cadastro, são liberadas sem autenticação; rotas administrativas exigem o papel de gerente. 【F:src/main/java/br/com/fiap/nextpark/config/SecurityConfig.java†L13-L31】
+- **Usuário padrão para acesso gerente**: ao iniciar a aplicação é criado (ou atualizado) automaticamente o usuário `gerente` com a senha configurada em `app.security.admin.password` (padrão `gerente123`). 【F:src/main/java/br/com/fiap/nextpark/config/AdminUserInitializer.java†L15-L74】
 - **Cadastro de novos clientes** diretamente pela tela `/register`; o sistema salva o usuário com perfil `CLIENTE` e senha criptografada. 【F:src/main/java/br/com/fiap/nextpark/controller/RegisterController.java†L19-L30】
 - **Gestão de vagas (GERENTE)**: criar, editar, listar e excluir vagas de estacionamento com controle de status. Clientes não têm acesso a essas telas. 【F:src/main/java/br/com/fiap/nextpark/controller/VagaController.java†L14-L49】【F:src/main/java/br/com/fiap/nextpark/service/VagaService.java†L25-L55】
 - **Gestão de motos (CLIENTE e GERENTE)**: clientes registram suas motos, editam informações e acompanham o status; gerentes conseguem visualizar todas as motos, desalocar, alocar ou mover entre vagas livres. 【F:src/main/java/br/com/fiap/nextpark/controller/MotoController.java†L27-L88】【F:src/main/java/br/com/fiap/nextpark/service/MotoService.java†L35-L139】
