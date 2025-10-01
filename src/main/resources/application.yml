@@ -3,9 +3,9 @@ spring:
     name: nextpark
 
   datasource:
-    url: ${azure.sql.url}
-    username: ${azure.sql.user}
-    password: ${azure.sql.password}
+    url: ${AZURE_SQL_URL}
+    username: ${AZURE_SQL_USER}
+    password: ${AZURE_SQL_PASSWORD}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
   jpa:
@@ -18,9 +18,9 @@ spring:
     baseline-on-migrate: true
     schemas: ${AZURE_SQL_SCHEMA:dbo}
     locations: classpath:db/migration
-    url: ${azure.sql.url}
-    user: ${azure.sql.user}
-    password: ${azure.sql.password}
+    url: ${AZURE_SQL_URL}
+    user: ${AZURE_SQL_USER}
+    password: ${AZURE_SQL_PASSWORD}
     clean-disabled: false
     baseline-version: 0
 
