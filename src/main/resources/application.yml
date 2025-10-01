@@ -22,7 +22,7 @@ spring:
     user: ${azure.sql.user}
     password: ${azure.sql.password}
     clean-disabled: false
-    baseline-version: 1
+    baseline-version: 0
 
 logging:
   level:
